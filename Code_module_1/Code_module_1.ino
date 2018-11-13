@@ -17,6 +17,9 @@
 int sensorval;
 float sensorvalbefore = -888;
 unsigned long timer;
+int detect = 0;
+int detectbefore = 0;
+int beat = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -27,36 +30,65 @@ void loop() {
   //*****************************************
   //            MODULE TIMER
   //*****************************************
-  
+
   // Serial.println(timer ); POUR VERIFIER
   timer = millis();
 
 
   //*****************************************
-  //            MODULE DETECTION
+  //          MODULE DETECTION
   //*****************************************
-  
+
   sensorval = analogRead(bus1);
-  float comparesensorval = sensorval-sensorvalbefore;
-
-  switch(comparesensorval){
-  case(<0sdfsdf
-    
-  }
-
 
   if (sensorval > sensorvalbefore) {
-    Serial.print(sensorval);
+    detect = 1;
+    // Serial.print(sensorval);
   } else {
     if (sensorval < sensorvalbefore) {
-       return 0;
+      detect = 0;
     } else {
       if (sensorvalbefore == -888) {
         sensorvalbefore = sensorval;
       }
     }
   }
-  sensorvalbefore = sensorval;
 
-  
-}
+  //****************************************
+  //       MODULE REGULARISATION POULS
+  //********************s********************
+
+  if (detectbefore == 0 && detect == 1) {
+    beat = 1;
+  }
+
+
+  //******************************************
+  //             MODULE POULS
+  //*******************************************
+
+
+  int sensorvalue;
+
+  while (timer % 5000 !=  0) {
+    if (beat == 1) {
+      sensorvalue++;
+    }
+  }
+  if (timer%5000 == 0){
+    int beats = sensorvalue *12;
+    Serial.print(timer);
+    Serial.print(beats);
+    Serial.print(";");
+  }
+
+    
+
+    //***** réinitialisation des variables*****
+
+    sensorvalbefore = sensorval;
+    detectbefore = detect;
+    detect = 0;
+    beat = 0;
+
+  }
