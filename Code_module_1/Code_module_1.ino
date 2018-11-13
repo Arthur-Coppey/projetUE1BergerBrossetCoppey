@@ -40,7 +40,7 @@ void loop() {
   float comparesensorval = sensorval-sensorvalbefore;
 
   switch(comparesensorval){
-  case(<0
+  case(<0sdfsdf
     
   }
 
