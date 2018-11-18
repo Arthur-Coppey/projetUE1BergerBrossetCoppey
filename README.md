@@ -1,5 +1,26 @@
 # Arduino
 
+## Bibliothèques
+
+### param.h
+Cette bibliotèque contient une séquence choisi par l'utilisateur, c'est à dire tous les états de chaques LED pour toutes les étapes du clignotement. 
+
+## Fonctions
+
+### setup
+Déclare les sorties digitales qui vont être utilisé sur l'Arduino.
+
+### loop
+Lance la fonction readSequence en boucle.
+
+### readSequence
+Exécute une étape de la séquence à chaque battement.
+Il utilise les variables suisvantes :
+*`int i` : variable de comptage de la première boucle FOR. 
+*`int j` : variable de comptage de la seconde boucle FOR.
+*`int stepNumber` : variable de condition d'arrêt de la première boucle FOR.
+*`int state` : variable indiquant l'état de la LED sélectionnée (1 pour allumée et 0 pour éteinte).
+*`int output` : variable indiquant la port sur lequel se situe la LED (entre 13 et 4 inclus dans notre cas).
 
 # Générateur de param.h
 
