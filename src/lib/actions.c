@@ -14,7 +14,7 @@ int getDataSize() {
 	int size = 0;
 	char buffer[5000];
 	FILE *file;
-	if ((file = fopen("Battement.csv", "r")) != NULL) {
+	if ((file = fopen("Battements.csv", "r")) != NULL) {
 		while (fscanf(file, "%s", buffer) != EOF) {
 			size++;
 		}
@@ -31,7 +31,7 @@ void getData(data *dt, int size) {
 	FILE *file;
 	int time = 0, pulse = 0;
 	char str[20], *template = "%d;%d&";
-	if ((file = fopen("Battement.csv", "r")) != NULL) {
+	if ((file = fopen("Battements.csv", "r")) != NULL) {
 		for (int i = 0; i < size; i++) {
 			fscanf(file, "%s", str);
 			sscanf(str, template, &time, &pulse);
