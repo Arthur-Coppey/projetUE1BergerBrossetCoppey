@@ -15,6 +15,6 @@ void merge(bpm *rate, bpm *rate1, bpm *rate2, int size1,
 
 void sort(bpm *rate, int size, int mode);
 
-int search(bpm *rate, int mode, int querry);
+int search(bpm *rate, int mode, int querry, int size);
 
 #endif /* MODULE4_SRC_DATA_H_ */

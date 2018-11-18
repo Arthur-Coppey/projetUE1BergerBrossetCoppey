@@ -47,18 +47,11 @@ void merge(bpm *rate, bpm *rate1, bpm *rate2, int size1,
 		}
 	} else {
 		for (m = j; m < size2; m++) {
-			rate[k] = rate2[j];
+			rate[k] = rate2[m];
 			k++;
 		}
 	}
-	for (i = 0; i < size1 + size2; i++) {
-		printf("rate[%d].ms = %d; rate[%d].bpm = %f;\n", i, rate[i].ms, i,
-				rate[i].bpm);
-		fflush(stdout);
-		getch();
-	}
 }
-
 void sort(bpm *rate, int size, int mode) {
 	int size1 = size / 2, size2 = size - (size / 2);
 	bpm rate1[size1], rate2[size2];
@@ -70,29 +63,36 @@ void sort(bpm *rate, int size, int mode) {
 	}
 }
 
-int search(bpm *rate, int mode, int querry) {
-	int size = sizeof(rate) / sizeof(bpm), index, res, min = 0, max = size
-			- 1;
+int search(bpm *rate, int mode, int querry, int size) {
+	int index = 0, res, min = 0, max = size - 1;
 	if (mode == 1) {
-		//search by time
 		while (res != querry) {
 			index = (min + max) / 2;
 			res = rate[index].ms;
-			if (res < querry) {
+			if (res > querry) {
 				max = index;
-			} else if (res > querry) {
+			} else if (res < querry) {
 				min = index;
+			} else {
+				return index;
+			}
+			if (max - min == 1) {
+				return -1;
 			}
 		}
 	} else {
-		//search by rate
 		while (res != querry) {
 			index = (min + max) / 2;
 			res = rate[index].bpm;
-			if (res < querry) {
+			if (res > querry) {
 				max = index;
-			} else if (res > querry) {
+			} else if (res < querry) {
 				min = index;
+			} else {
+				return index;
+			}
+			if (max - min == 1) {
+				return -1;
 			}
 		}
 	}

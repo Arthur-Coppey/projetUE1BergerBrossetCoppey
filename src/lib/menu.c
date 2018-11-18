@@ -33,19 +33,20 @@ void menuMain() {
 
 void displayData(bpm *rate, int order, int size) {
 	system("cls");
-	puts("==================");
-	puts("|| time | pulse ||");
-	puts("||--------------||");
+	puts("====================================================");
+	puts("|| time between two beats | calculated heart rate ||");
+	puts("||------------------------------------------------||");
 	if (order == 1) {
 		for (int i = 0; i < size; i++) {
-			printf("|| %d\t| %f\t||\n", rate[i].ms, rate[i].bpm);
+			printf("|| %d\t\t\t  | %3.2f\t\t  ||\n", rate[i].ms, rate[i].bpm);
 		}
 	} else {
 		for (int i = 0; i < size; i++) {
-			printf("|| %d\t| %f\t||\n", rate[size - i].ms, rate[size - i].bpm);
+			printf("|| %d\t\t\t  | %3.2f\t\t  ||\n", rate[size - 1 - i].ms,
+					rate[size - 1 - i].bpm);
 		}
 	}
-	puts("==================");
+	puts("====================================================");
 	puts("press a key to continue");
 	fflush(stdout);
 	getch();
@@ -75,12 +76,14 @@ void menuDisplayOrder() {
 
 void displayExtremums(bpm *extremums) {
 	system("cls");
-	puts("===================================");
-	puts("|| min           || max          ||");
-	puts("||---------------||--------------||");
-	printf("|| %d ms\t|| %d ms\t||\n", extremums[0].ms, extremums[1].ms);
-	printf("|| %f bpm\t|| %f bpm\t||\n", extremums[0].bpm, extremums[1].bpm);
-	puts("===================================");
+	puts("====================================");
+	puts("|| min           || max           ||");
+	puts("||---------------||---------------||");
+	printf("|| %d ms        || %d ms        ||\n", extremums[0].ms,
+			extremums[1].ms);
+	printf("|| %3.2f bpm\t || %3.2f bpm\t  ||\n", extremums[0].bpm,
+			extremums[1].bpm);
+	puts("====================================");
 	puts("press a key to continue");
 	fflush(stdout);
 	getch();
@@ -90,18 +93,19 @@ void displayAverage(float avrg) {
 	system("cls");
 	puts("======================================");
 	puts("|| The average heart rate for these ||");
-	printf("|| time boundaries is %f     ||\n", avrg);
+	printf("|| time boundaries is %3.2f\t    ||\n", avrg);
 	puts("======================================");
 	puts("press a key to continue");
 	fflush(stdout);
 	getch();
 }
 
-void displayLines(int lines) {
+void displayLines(int lines, int ram) {
 	system("cls");
-	puts("==========================================");
-	printf("|| There are %3d lines stored in memory ||\n", lines);
-	puts("==========================================");
+	puts("====================================================");
+	printf("|| There are %d lines stored in memory (%3d bytes) ||\n", lines,
+			ram);
+	puts("====================================================");
 	puts("press a key to continue");
 	fflush(stdout);
 	getch();

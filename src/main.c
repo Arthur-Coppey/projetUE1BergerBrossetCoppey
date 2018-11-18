@@ -5,7 +5,6 @@
 #include "lib/actions.h"
 
 int main(void) {
-	menuMain();
 	getMainMenuInput();
 	return EXIT_SUCCESS;
 }

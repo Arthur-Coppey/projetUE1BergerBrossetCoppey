@@ -19,7 +19,7 @@ float average(bpm *rate, int size);
 
 void fileOrder(bpm *rate, int size);
 
-void time();
+void time(bpm *rate, int size);
 
 void getExtremums(bpm *rate, bpm *extremums, int size);
 

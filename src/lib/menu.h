@@ -19,6 +19,6 @@ void displayExtremums(bpm *extremums);
 
 void displayAverage(float avrg);
 
-void displayLines(int lines);
+void displayLines(int lines, int ram);
 
 #endif /* MODULE4_SRC_LIB_MENU_H_ */

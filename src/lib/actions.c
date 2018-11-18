@@ -48,8 +48,8 @@ void getData(data *dt, int size) {
 
 int getUserInput(int min, int max) {
 	int out, code = 0;
-	char input[1] = "";
-	while (code == 0 || (out < min && out > max)) {
+	char input[5] = "";
+	while (code == 0 || (out < min || out > max)) {
 		scanf("%s", input);
 		code = strcmp(input, "");
 		sscanf(input, "%d", &out);
@@ -68,19 +68,22 @@ void sortBy(bpm *rate, int size) {
 }
 
 float average(bpm *rate, int size) {
-	int min, max;
+	int min, max, num = 0;
 	float avrg = 0.0;
 	sort(rate, size, 1);
 	min = rate[0].ms;
 	max = rate[size - 1].ms;
-	printf("Minimum time ? \n");
+	printf("Minimum time ? (>= %d)\n", min);
 	min = getUserInput(min, max);
-	printf("Maximum time ? \n");
+	printf("Maximum time ? (<= %d)\n", max);
 	max = getUserInput(min, max);
 	for (int i = 0; i < size; i++) {
-		avrg += rate[i].bpm;
+		if (rate[i].ms > min && rate[i].ms < max) {
+			avrg += rate[i].bpm;
+			num++;
+		}
 	}
-	avrg /= (float) size;
+	avrg /= (float) num;
 	return avrg;
 }
 
@@ -88,8 +91,22 @@ void fileOrder(bpm *rate, int size) {
 	displayData(rate, 1, size);
 }
 
-void time() {
-
+void time(bpm *rate, int size) {
+	int querry, index;
+	sort(rate, size, 1);
+	printf("please enter a number between %d and %d\n", rate[0].ms,
+			rate[size - 1].ms);
+	querry = getUserInput(rate[0].ms, rate[size - 1].ms);
+	index = search(rate, 1, querry, size);
+	if (index == -1) {
+		printf("nothing found for time %d\n", querry);
+	} else {
+		printf("The heart rate calculated for %d ms is %3.2f bpm\n",
+				rate[index].ms, rate[index].bpm);
+	}
+	puts("press a key to continue");
+	fflush(stdout);
+	getch();
 }
 
 int getBeats(data *dt, int size) {
@@ -116,7 +133,7 @@ void getRate(data *dt, data *dt1, int size, int size1, bpm *rate) {
 }
 
 void getExtremums(bpm *rate, bpm *out, int size) {
-	sort(rate, size, 1);
+	sort(rate, size, 2);
 	out[0].ms = rate[0].ms;
 	out[0].bpm = rate[0].bpm;
 	out[1].ms = rate[size - 1].ms;
@@ -124,36 +141,41 @@ void getExtremums(bpm *rate, bpm *out, int size) {
 }
 
 void getMainMenuInput() {
-	int size = getDataSize(), size1;
+	int size = getDataSize(), size1, ram, input;
 	float avrg;
 	data dt[size];
 	getData(dt, size);
 	size1 = getBeats(dt, size);
 	data dt1[size1];
 	bpm rate[size1 - 1], extremums[2];
+	ram = sizeof(rate);
 	getRate(dt, dt1, size, size1, rate);
-	switch (getUserInput(1, 7)) {
-	case 1:
-		fileOrder(rate, size1 - 1);
-		break;
-	case 2:
-		sortBy(rate, size1 - 1);
-		break;
-	case 3:
-		time(rate);
-		break;
-	case 4:
-		avrg = average(rate, size1 - 1);
-		displayAverage(avrg);
-		break;
-	case 5:
-		displayLines(size1 - 1);
-		break;
-	case 6:
-		getExtremums(rate, extremums, size1 - 1);
-		displayExtremums(extremums);
-		break;
-	case 7:
-		break;
+	while (input != 7) {
+		menuMain();
+		input = getUserInput(1, 7);
+		switch (input) {
+		case 1:
+			fileOrder(rate, size1 - 1);
+			break;
+		case 2:
+			sortBy(rate, size1 - 1);
+			break;
+		case 3:
+			time(rate, size1 - 1);
+			break;
+		case 4:
+			avrg = average(rate, size1 - 1);
+			displayAverage(avrg);
+			break;
+		case 5:
+			displayLines(size1 - 1, ram);
+			break;
+		case 6:
+			getExtremums(rate, extremums, size1 - 1);
+			displayExtremums(extremums);
+			break;
+		case 7:
+			break;
+		}
 	}
 }
