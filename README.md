@@ -1,4 +1,4 @@
-*Le but du module 1 est de faire un premier lien entre le hardware et le software. *
+*Le but du module 1 est de faire un premier lien entre le hardware et le software.*
 
 **cardio.c :**
 * `int menuCardio()` : Lance les fonctions ci dessous. Possède un timer `timecount` prenant la valeur de `millis()` et lance la détection du port A0 sur l'arduino en la stockant dans `sensoval`. Retourne `valDetect`. 
