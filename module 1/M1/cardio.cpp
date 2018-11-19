@@ -8,7 +8,7 @@ float sensorvalbefore = -888;
 int beatbefore  = 0;
 
 
-int hasChanged(float sensorva1, float sensorvalbefore)
+int hasChanged(float sensorva1)
 {
 
   if (sensorva1 >= threshold) {
@@ -44,7 +44,7 @@ int menuCardio() {
   timecount = millis();
   sensorva1 = analogRead(A0);
   int beat = 0;
-  beat = hasChanged(sensorva1, sensorvalbefore);
+  beat = hasChanged(sensorva1);
   int valDetect = beatHasChanged (beatbefore, beat);
   if (valDetect == 2) {
     sensorvalbefore = sensorva1;
